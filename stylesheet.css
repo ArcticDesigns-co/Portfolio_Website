@@ -72,6 +72,10 @@ lia a {
 	color: #3d3d3d;
 }
 
+.space_250px {
+	height: 250px;
+}
+
 .space_150px {
 	height: 150px;
 }
@@ -133,6 +137,7 @@ lia a {
 	margin: 0px 16% 0px 0px;
 	font-size: 19px;
 	line-height: 30px;
+
 }
 
 .example_img {
@@ -143,4 +148,19 @@ lia a {
 
 .example_p {
 	float: right;
+}
+
+.example_img__contact {
+	margin: 0px 0px 0px 30%;
+	width: 22%;
+	float: left;
+	object-fit: cover;
+}
+
+.example_p_container__contact {
+	float: right;
+	font-size: 26px;
+	line-height: 46px;
+	margin: auto;
+	width: 50%;
 }
