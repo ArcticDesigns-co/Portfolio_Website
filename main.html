@@ -489,7 +489,18 @@
 						this.handleNextClick = this.handleNextClick.bind(this);
 						this.handleSlideClick = this.handleSlideClick.bind(this);
 					}
+					
+  // Start an interval when Component Mounts
+  componentDidMount() {
+    const interval = setInterval(this.handleNextClick, 5000);
+    this.setState({autoSlide: interval});
+  }
 
+  // Clear the Interval when Component Unmounts
+  componentWillUnmount() {
+    clearInterval(this.autoSlide);
+    this.setState({autoSlide: -1});
+  }
 					handlePreviousClick() {
 						const previous = this.state.current - 1;
 
