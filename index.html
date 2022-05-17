@@ -1,0 +1,618 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Home</title>
+	<link href="stylesheet.css" rel="stylesheet" type="text/css">
+
+	<!--Need later?-->
+	<link href="slicknav.css" rel="stylesheet" type="text/css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+	<!--Font-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+	<!--Icons-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+	<!--New gallery -->
+	<link rel="apple-touch-icon" type="image/png" href="https://i.imgur.com/x5oMV8u.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="https://i.imgur.com/x5oMV8u.png" />
+	<link rel="mask-icon" type="image/x-icon" href="https://i.imgur.com/x5oMV8u.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+<body>
+
+	<style>
+		
+		:root {
+			--color-primary: #6B7A8F;
+			--color-secondary: #101118;
+			--color-accent: #1D1F2F;
+			--color-focus: #6D64F7;
+			--base-duration: 600ms;
+			--base-ease: cubic-bezier(0.25, 0.46, 0.45, 0.84);
+		}
+
+		*,
+		*:before,
+		*:after {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+
+
+		#app {
+			align-items: center;
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			overflow-x: hidden;
+			width: 100%;
+		}
+
+
+
+		.visuallyhidden {
+			clip: rect(1px, 1px, 1px, 1px);
+			height: 1px;
+			overflow: hidden;
+			position: absolute !important;
+			white-space: nowrap;
+			width: 1px;
+		}
+
+		.icon {
+			fill: var(--color-primary);
+			width: 100%;
+		}
+
+		.btn {
+			background-color: var(--color-primary);
+			border: none;
+			border-radius: 0.125rem;
+			color: white;
+			cursor: pointer;
+			font-family: inherit;
+			font-size: inherit;
+			padding: 1rem 2.5rem 1.125rem;
+		}
+
+		.btn:focus {
+			outline-color: var(--color-focus);
+			outline-offset: 2px;
+			outline-style: solid;
+			outline-width: 3px;
+		}
+
+		.btn:active {
+			transform: translateY(1px);
+		}
+
+		.slider__controls {
+			display: flex;
+			justify-content: center;
+			position: absolute;
+			top: calc(100% + 1rem);
+			width: 100%;
+		}
+
+		.slider__controls .btn {
+			--size: 3rem;
+			align-items: center;
+			background-color: transparent;
+			border: 3px solid transparent;
+			border-radius: 100%;
+			display: flex;
+			height: var(--size);
+			padding: 0;
+			width: var(--size);
+		}
+
+		.slider__controls .btn:focus {
+			border-color: var(--color-focus);
+			outline: none;
+		}
+
+		.slider__controls .btn--previous>* {
+			transform: rotate(180deg);
+		}
+
+		.slider {
+			--slide-size: 70vmin;
+			--slide-margin: 4vmin;
+			height: var(--slide-size);
+			margin: 0 auto;
+			position: relative;
+			width: var(--slide-size);
+		}
+
+		.slider__wrapper {
+			display: flex;
+			margin: 0 calc(var(--slide-margin) * -1);
+			position: absolute;
+			transition: transform var(--base-duration) cubic-bezier(0.25, 1, 0.35, 1);
+		}
+
+		.slide {
+			align-items: center;
+			color: white;
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			height: var(--slide-size);
+			justify-content: center;
+			margin: 0 var(--slide-margin);
+			opacity: 0.25;
+			position: relative;
+			text-align: center;
+			transition: opacity calc(var(--base-duration) / 2) var(--base-ease), transform calc(var(--base-duration) / 2) var(--base-ease);
+			width: var(--slide-size);
+			z-index: 1;
+		}
+
+		.slide--previous:hover,
+		.slide--next:hover {
+			opacity: 0.5;
+		}
+
+		.slide--previous {
+			cursor: w-resize;
+		}
+
+		.slide--previous:hover {
+			transform: translateX(2%);
+		}
+
+		.slide--next {
+			cursor: e-resize;
+		}
+
+		.slide--next:hover {
+			transform: translateX(-2%);
+		}
+
+		.slide--current {
+			--x: 0;
+			--y: 0;
+			--d: 50;
+			opacity: 1;
+			pointer-events: auto;
+			-webkit-user-select: auto;
+			-moz-user-select: auto;
+			-ms-user-select: auto;
+			user-select: auto;
+		}
+
+		@media (hover: hover) {
+			.slide--current:hover .slide__image-wrapper {
+				transform: scale(1.025) translate(calc(var(--x) / var(--d) * 1px), calc(var(--y) / var(--d) * 1px));
+			}
+		}
+
+		.slide__image-wrapper {
+			background-color: var(--color-accent);
+			border-radius: 1%;
+			height: 100%;
+			left: 0%;
+			overflow: hidden;
+			position: absolute;
+			top: 0%;
+			transition: transform calc(var(--base-duration) / 4) var(--base-ease);
+			width: 100%;
+		}
+
+		.slide__image {
+			--d: 20;
+			height: 110%;
+			left: -5%;
+			-o-object-fit: cover;
+			object-fit: cover;
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			top: -5%;
+			transition: opacity var(--base-duration) var(--base-ease), transform var(--base-duration) var(--base-ease);
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			width: 110%;
+		}
+
+		@media (hover: hover) {
+			.slide--current .slide__image {
+				transform: translate(calc(var(--x) / var(--d) * 1px), calc(var(--y) / var(--d) * 1px));
+			}
+		}
+
+		.slide__headline {
+			font-size: 8vmin;
+			font-weight: 600;
+			position: relative;
+		}
+
+
+		}
+
+		.slide--current {
+			-webkit-animation: fade-in calc(var(--base-duration) / 2) var(--base-ease) forwards;
+			animation: fade-in calc(var(--base-duration) / 2) var(--base-ease) forwards;
+			visibility: visible;
+		}
+
+
+
+		@-webkit-keyframes fade-in {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes fade-in {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+	</style>
+
+	<script>
+		window.console = window.console || function(t) {};
+
+	</script>
+
+
+
+	<script>
+		if (document.location.search.match(/type=embed/gi)) {
+			window.parent.postMessage("resize", "*");
+		}
+
+	</script>
+
+
+	</head>
+
+
+		<body translate="no">
+
+		<!--Logo-->
+		<div>
+			<img src="images/logo/logo.png" alt="ArcticLogo" class="image_center">
+		</div>
+			<div class = "title"> <h3> Arctic Designs</h3></div>
+		<!--Navbar-->
+		<div class="navbar_center">
+			<ul>
+				<lia><a href="main.html">Home</a></lia>
+				<lia><a href="portfolio.html">Portfolio</a></lia>
+				<lia><a href="3">Contact Me</a></lia>
+			</ul>
+		</div>
+
+		<div class="space_50px">
+		</div>
+
+		<div class="title_main">
+			<h4> Graphic / Web Design - Photo Editing</h4>
+		</div>
+
+		<div class="space_50px">
+		</div>
+
+			<div id="app"></div>
+			<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+
+			<script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.production.min.js'></script>
+			<script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js'></script>
+			<script src='https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/4.2.1/react-transition-group.min.js'></script>
+			<script id="rendered-js">
+				const slideData = [{
+						index: 0,
+						// make images square before upload 2000x2000
+						//doc setup -> color -> transparancy
+						// imgur.com
+					
+						src: 'https://i.imgur.com/U7eML05.png'
+					},
+
+					{
+						index: 1,
+
+						src: 'https://i.imgur.com/rKmrsiB.png'
+					},
+
+					{
+						index: 2,
+
+						src: 'https://i.imgur.com/HAaAcyy.png'
+					},
+
+					{
+						index: 3,
+
+						src: 'https://i.imgur.com/7Z85JEY.png'
+					},
+								
+				];
+
+
+
+
+				// =========================
+				// 
+				// =========================
+
+				class Slide extends React.Component {
+					constructor(props) {
+						super(props);
+
+						this.handleMouseMove = this.handleMouseMove.bind(this);
+						this.handleMouseLeave = this.handleMouseLeave.bind(this);
+						this.handleSlideClick = this.handleSlideClick.bind(this);
+						this.imageLoaded = this.imageLoaded.bind(this);
+						this.slide = React.createRef();
+					}
+
+					handleMouseMove(event) {
+						const el = this.slide.current;
+						const r = el.getBoundingClientRect();
+
+						el.style.setProperty('--x', event.clientX - (r.left + Math.floor(r.width / 2)));
+						el.style.setProperty('--y', event.clientY - (r.top + Math.floor(r.height / 2)));
+					}
+
+					handleMouseLeave(event) {
+						this.slide.current.style.setProperty('--x', 0);
+						this.slide.current.style.setProperty('--y', 0);
+					}
+
+					handleSlideClick(event) {
+						this.props.handleSlideClick(this.props.slide.index);
+					}
+
+					imageLoaded(event) {
+						event.target.style.opacity = 1;
+					}
+
+					render() {
+						const {
+							src,
+							button,
+							headline,
+							index
+						} = this.props.slide;
+						const current = this.props.current;
+						let classNames = 'slide';
+
+						if (current === index) classNames += ' slide--current';
+						else
+						if (current - 1 === index) classNames += ' slide--previous';
+						else
+						if (current + 1 === index) classNames += ' slide--next';
+
+						return /*#__PURE__*/ (
+							React.createElement("li", {
+									ref: this.slide,
+									className: classNames,
+									onClick: this.handleSlideClick,
+									onMouseMove: this.handleMouseMove,
+									onMouseLeave: this.handleMouseLeave
+								}, /*#__PURE__*/
+
+								React.createElement("div", {
+										className: "slide__image-wrapper"
+									}, /*#__PURE__*/
+									React.createElement("img", {
+										className: "slide__image",
+										alt: headline,
+										src: src,
+										onLoad: this.imageLoaded
+									})), /*#__PURE__*/
+
+
+
+								React.createElement("article", {}, /*#__PURE__*/
+									React.createElement("h2", {
+										className: "slide__headline"
+									}, headline), /*#__PURE__*/
+									React.createElement("button", {
+										className: "slide__action btn"
+									}, button))));
+
+
+
+					}
+				}
+
+
+
+				// =========================
+				// Slider control
+				// =========================
+
+				const SliderControl = ({
+					type,
+					title,
+					handleClick
+				}) => {
+					return /*#__PURE__*/ (
+						React.createElement("button", {
+								className: `btn btn--${type}`,
+								title: title,
+								onClick: handleClick
+							}, /*#__PURE__*/
+							React.createElement("svg", {
+									className: "icon",
+									viewBox: "0 0 24 24"
+								}, /*#__PURE__*/
+								React.createElement("path", {
+									d: "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+								}))));
+
+
+
+				};
+
+
+				// =========================
+				// Slider
+				// =========================
+
+				class Slider extends React.Component {
+					constructor(props) {
+						super(props);
+
+						this.state = {
+							current: 0
+						};
+						this.handlePreviousClick = this.handlePreviousClick.bind(this);
+						this.handleNextClick = this.handleNextClick.bind(this);
+						this.handleSlideClick = this.handleSlideClick.bind(this);
+					}
+					
+  // Start an interval when Component Mounts
+  componentDidMount() {
+    const interval = setInterval(this.handleNextClick, 5000);
+    this.setState({autoSlide: interval});
+  }
+
+  // Clear the Interval when Component Unmounts
+  componentWillUnmount() {
+    clearInterval(this.autoSlide);
+    this.setState({autoSlide: -1});
+  }
+					handlePreviousClick() {
+						const previous = this.state.current - 1;
+
+						this.setState({
+							current: previous < 0 ?
+								this.props.slides.length - 1 : previous
+						});
+
+					}
+
+					handleNextClick() {
+						const next = this.state.current + 1;
+
+						this.setState({
+							current: next === this.props.slides.length ?
+								0 : next
+						});
+
+					}
+
+					handleSlideClick(index) {
+						if (this.state.current !== index) {
+							this.setState({
+								current: index
+							});
+
+						}
+					}
+
+					render() {
+						const {
+							current,
+							direction
+						} = this.state;
+						const {
+							slides,
+							heading
+						} = this.props;
+						const headingId = `slider-heading__${heading.replace(/\s+/g, '-').toLowerCase()}`;
+						const wrapperTransform = {
+							'transform': `translateX(-${current * (100 / slides.length)}%)`
+						};
+
+
+						return /*#__PURE__*/ (
+							React.createElement("div", {
+									className: "slider",
+									"aria-labelledby": headingId
+								}, /*#__PURE__*/
+								React.createElement("ul", {
+										className: "slider__wrapper",
+										style: wrapperTransform
+									}, /*#__PURE__*/
+									React.createElement("h3", {
+										id: headingId,
+										class: "visuallyhidden"
+									}, heading),
+
+									slides.map(slide => {
+										return /*#__PURE__*/ (
+											React.createElement(Slide, {
+												key: slide.index,
+												slide: slide,
+												current: current,
+												handleSlideClick: this.handleSlideClick
+											}));
+
+
+									})), /*#__PURE__*/
+
+
+								React.createElement("div", {
+										className: "slider__controls"
+									}, /*#__PURE__*/
+									React.createElement(SliderControl, {
+										type: "previous",
+										title: "Go to previous slide",
+										handleClick: this.handlePreviousClick
+									}), /*#__PURE__*/
+
+
+									React.createElement(SliderControl, {
+										type: "next",
+										title: "Go to next slide",
+										handleClick: this.handleNextClick
+									}))));
+
+
+
+
+					}
+				}
+
+				ReactDOM.render( /*#__PURE__*/ React.createElement(Slider, {
+					heading: "Example Slider",
+					slides: slideData
+				}), document.getElementById('app'));
+
+			</script>
+
+			<div class="space_150px">
+			</div>
+
+			<footer1>
+				<h5>Josh Melvin</h5>
+<!--				<p> <i class="fa-brands fa-twitter "></i> <a href="https://www.twitter.com/ArcticDesign.co"> Twitter</a> </p>-->
+				<p> <i class="fa-brands fa-instagram"></i> <a href="https://www.instagram.com/Arctic.Designs"> Instagram</a></p>
+
+				<p><i class="fa-solid fa-envelope"></i> <a href="mailto:josh@arcticdesigns.co"> Josh@ArcticDesigns.co</a></p>
+				<p> <i class="fa-solid fa-phone"></i> (337) 446-4341</p>
+			</footer1>
+
+		</body>
+
+</html>
