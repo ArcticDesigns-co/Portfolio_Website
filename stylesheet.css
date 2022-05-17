@@ -1,0 +1,146 @@
+body {
+	background-color: rgb(250, 255, 255);
+	font-family: 'Roboto', sans-serif;
+}
+
+
+footer1 {
+	display: block;
+	padding: 15px 30px;
+	background-color: rgb(225, 255, 255);
+	background: rgb(48, 177, 255);
+	background: -moz-linear-gradient(90deg, rgba(48, 177, 255, 0.2329306722689075) 0%, rgba(0, 255, 252, 0.0984768907563025) 100%);
+	background: -webkit-linear-gradient(90deg, rgba(48, 177, 255, 0.2329306722689075) 0%, rgba(0, 255, 252, 0.0984768907563025) 100%);
+	background: linear-gradient(90deg, rgba(48, 177, 255, 0.2329306722689075) 0%, rgba(0, 255, 252, 0.0984768907563025) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#30b1ff", endColorstr="#00fffc", GradientType=1);
+	text-align: right;
+	line-height: 22px;
+	font-size: 18px;
+}
+
+.title {
+	display: a;
+	font-weight: normal;
+	text-align: center;
+	font-size: 37px;
+	padding: 0px 0px 20px;
+}
+
+.title_main {
+	display: a;
+	font-weight: normal;
+	text-align: center;
+	font-size: 33px;
+}
+
+a:link {
+	color: #3d3d3d;
+	text-decoration: none;
+}
+
+a:hover {
+	color: rgba(0, 0, 0, 0.3);
+}
+
+/*Logo*/
+.image_center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 250px;
+}
+
+/*Nav*/
+.navbar_center {
+	display: flex;
+	justify-content: center;
+}
+
+lia {
+	left: 200px;
+	display: inline;
+	padding: 10px;
+	font-size: 23px;
+	transform: translate(-50%, -50%);
+}
+
+lia a {
+	left: 200px;
+	padding: 33px 35px;
+	float: center;
+	text-decoration: none;
+	color: #3d3d3d;
+}
+
+.space_150px {
+	height: 150px;
+}
+
+.space_100px {
+	height: 100px;
+}
+
+.space_50px {
+	height: 50px;
+}
+
+/*Portfolio*/
+.portfolio_row {
+	display: -ms-flexbox;
+	/* For IE10 */
+	display: flex;
+	-ms-flex-wrap: wrap;
+	/* For IE10 */
+	flex-wrap: wrap;
+	padding: 0 4px;
+}
+
+/* 2 Columns */
+.portfolio_column {
+	-ms-flex: 25%;
+	/* For IE10 */
+	flex: 25%;
+	max-width: 50%;
+	padding: 0 4px;
+}
+
+.portfolio_column img {
+	margin-top: 8px;
+	vertical-align: middle;
+	width: 100%;
+}
+
+/* Responsive 1 column */
+@media screen and (max-width: 800px) {
+	.portfolio_column {
+		-ms-flex: 100%;
+		flex: 100%;
+		max-width: 100%;
+	}
+}
+
+/*Port End*/
+
+
+/*Examples*/
+.example_img_container {
+	display: flex;
+
+}
+
+.example_p_container {
+	float: right;
+	margin: 0px 16% 0px 0px;
+	font-size: 19px;
+	line-height: 30px;
+}
+
+.example_img {
+	margin: 0px 0px 0px 4%;
+	width: 55%;
+	float: left;
+}
+
+.example_p {
+	float: right;
+}
